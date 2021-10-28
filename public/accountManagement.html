@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Title for the page -->
+    <title>Floral Envy Tracking</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+    <!-- for firestore connection and collection -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
+
+    <!-- Configuration created by us -->
+    <script src="js/fireBase.js"></script>
+
+    <!-- fontawsome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- Added on 08-March-2021 -->
+    <!-- Datatable css for bootstrap style and JS for functionality-->
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+</head>
+
+<body>
+    <!-- DataTabels -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <div class="container-fluid" style="margin-top:20px;">
+                <div class="card shadow mb-4">
+                    <div class="card-body">
+                        <div>
+                            <!-- link back to dashboard -->
+                            <h6 class="m-0 font-weight-bold text-primary"><a href="main.html">Back to Dashboard</a>
+                            </h6>
+                            <!-- header for the page -->
+                            <h3 class="m-0 font-weight-bold text-primary" style="text-align: center;">Registered
+                                Accounts</h3>
+                        </div>
+                        <!-- datatable which id will be used by Jquery -->
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="modal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document" id="deleteModal">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Modal body text goes here.</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="js/accountManagement.js"></script>
+</body>
+
+</html>

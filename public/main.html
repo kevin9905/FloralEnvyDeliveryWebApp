@@ -1,0 +1,425 @@
+<html>
+
+<head>
+  <title>Floral Envy Tracking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="stylesheets/style.css" media="screen" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-firestore.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="js/fireBase.js"></script>
+
+</head>
+
+<body>
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <a href="#" class="welcome-email text-white">
+          <!--Welcome {email} message-->
+        </a>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a href="#" class="nav-link admin" data-bs-toggle="modal" data-bs-target="#modal-create" style="display:none">Create Delivery</a>
+          </li>
+          <li class="nav-item">
+
+            <a href="#" class="nav-link admin" data-bs-toggle="modal" data-bs-target="#modal-reports" style="display:none">Weekly report</a>
+          </li>
+          <li class="nav-item">
+
+            <a href="#" onclick="displayDrop()" class="nav-link admin" data-bs-toggle="modal"
+              data-bs-target="#modal-history" style="display:none">Database</a>
+          <li class="dropdown">
+            <a class="nav-link dropdown-toggle admin" href="#" id="dropdownMenuAM" data-bs-toggle="dropdown"
+              aria-expanded="false" style="display:none">Account Management</a>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuAM">
+              <li><a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#create-account"><i
+                    class="fas fa-user" style="padding-right:4px"></i> Create Account</a></li>
+              <li><a href="../accountManagement.html" class="dropdown-item" data-bs-toggle="modal"><i
+                    class="fas fa-user-edit" style="padding-right:4px"></i> Manage Account</a></li>
+            </ul>
+
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" id="logout">Logout</a>
+          </li>
+        </ul>
+
+      </div>
+
+    </div>
+  </nav>
+
+
+
+
+  <!--MODALS-->
+  <!--Create Delivery Modal-->
+  <div class="modal fade" id="modal-create" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Create Delivery</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!--End modal header-->
+        <div class="modal-body">
+          <form id="create-delivery-form">
+            <a href="#" class="text-decoration-none">Client information</a>
+            <div class="row g-2">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name"
+                  id="clientFirstName" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
+                  id="clientLastName" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="clientPhone" required>
+              </div>
+
+              <a href="#" class="text-decoration-none">Recipient information</a>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name"
+                  id="recFirstName" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="recLastName"
+                  required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Phone Number" aria-label="Phone Number"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="recPhone" required>
+              </div>
+              <div class="col-12">
+                <input type="text" class="form-control" placeholder="Address" id="recAddress" required>
+              </div>
+              <a href="#" class="text-decoration-none">Delivery Information</a>
+              <div class="col">
+                <input type="number" class="form-control" placeholder="Order Number" aria-label="Order number"
+                  id="orderNum" required>
+              </div>
+              <div class="col">
+                <input type="date" class="form-control" placeholder="Delivery Date" aria-label="Delivery date"
+                  id="deliveryDate" required>
+              </div>
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Item" aria-label="Item" id="deliveryItem" required>
+              </div>
+              <div class="col-12">
+                <select class="form-select" aria-label="Driver select" placeholder="Driver" aria-label="Driver"
+                  id="deliveryDriver" required>
+                  <!--options from database-->
+                </select>
+              </div>
+              <div class="col-12">
+                <input type="text" class="form-control" placeholder="Pay rate" aria-label="Payrate" id="deliveryPay"
+                  required>
+              </div>
+              <div class="mb-3">
+                <label for="deliveryNotes" class="form-label">Notes</label>
+                <textarea class="form-control" id="deliveryNotes" rows="3" id="deliveryNotes"></textarea>
+              </div>
+              <button class="btn btn-primary">Create</button>
+          </form>
+        </div>
+
+
+
+
+
+      </div>
+      <!--End modal-Body-->
+    </div>
+    <!--End modal-content-->
+  </div>
+  <!--end modal dialog-->
+
+  </div>
+  <!--End Create delivery modal-->
+
+
+
+
+
+
+
+  <!-- WEEKLY REPORT MODAL -->
+
+  <div class="modal fade " id="modal-reports" tabindex="-1"  >
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title">Weekly Report</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h4>Choose the date to report</h4>
+            <div class="row">
+              <div class="col">
+                <p>From</p>
+                <input id="date1" type="date" class="form-control" required/>
+              </div>
+              <div class="col">
+                <p>To</p>
+                <input id="date2" type="date" class="form-control" required/>
+              </div>
+              <div class="col">
+                <p></p></br>
+                <button id="show" type="button" class="btn btn-primary" onclick="myFunction()">Enter</button>
+              </div>
+            </div>
+          <br/><br/>
+            <!--Table list of invoice-->
+            <div id="content" class="table-responsive" style="display:none;">
+              <div id="hello"></div>
+            </div>
+          </div>
+          <!--Print button to print and the monthly report in PDF , excel format-->
+          <div class="modal-footer">
+            <button id="print" type="button" class="btn btn-success" onclick="printData('content')"><i class="fa fa-print">&nbsp;</i>Print </button>
+          </div>
+        </div>
+
+      </div>
+      <!--End modal-content-->
+    </div>
+    <!--end modal dialog-->
+    <!--<iframe name="print_frame" width="0" height="0" frameborder="0" src="about:blank"></iframe>-->
+  </div>
+  <!--End Monthly Report modal-->
+
+
+
+<!-- DATABASE MODAL -->
+
+<div class="modal fade" id="modal-history" tabindex="-1">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <!-- HEADER -->
+      <div class="modal-header">
+        <h2 class="modal-title">Database </h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      </div>
+      <!-- BODY -->
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <input id="historyDate" type="date" class="form-control">
+          </div>
+          <div class="col col-lg-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Drivers
+            </button>
+            <ul id="driverList" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            </ul>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-primary" onclick="displayTable()">View All Driver</button>
+          </div>
+          <div class="row justify-content-md-center" style="margin-top: 14;">
+            <div class="col">
+              <div id="startContent" class="badge bg-white text-wrap" style="width: 50rem; margin-left: 150; font-size: large; color:black;outline-style: double; outline-color: black;"></div>
+            </div>
+          </div>
+
+          <!-- <div class="row justify-content-md-center" style="margin-top: 14;">
+            <div class="col">
+              <div id='driverNum' class="alert alert-success" role="alert" style="display:none;">
+                  
+              </div>
+            </div>
+          </div> -->
+          <!--display table content-->
+          <!--style="display:none" means don't play table by defualt-->
+
+          <div id="historyContent" class="table-responsive" style="display:none;"></div>
+        </div>
+      </div>
+      <!-- BODY -->
+      <div class="modal-footer">
+      </div>
+    </div>
+    <!--End modal-content-->
+  </div>
+
+</div>
+<!--End History modal-->
+
+
+
+
+
+
+  <!-- Account Management BLock Start-->
+  <!-- CREATE ACCOUNT MODAL -->
+
+  <div class="modal fade" id="create-account" tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Create Account</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="newAccount-form">
+            <div class="mb-3">
+              <label for="Name" class="form-label"> First Name</label>
+              <input type="text" class="form-control" id="firstName" aria-label="First name">
+            </div>
+            <div class="mb-3">
+              <label for="Name" class="form-label"> Last Name</label>
+              <input type="text" class="form-control" id="lastName" aria-label="First name">
+            </div>
+            <div class="mb-3">
+              <label for="PhoneNumber" class="form-label">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber" aria-label="Phone Number"
+                pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+            </div>
+            <div class="mb-3">
+              <label for="Admin" class="form-label">Administrator Rights</label>
+              <select class="form-select" aria-label="Driver select" id="isAdmin" aria-label="Is Admin" required>
+                  <option value = "0" >No</option>
+                  <option value = "1">Yes</option>
+                </select>
+            </div>
+            <div class="mb-3">
+              <label for="Email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="newAccount-email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="Password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="newAccount-password">
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+          </form>
+
+        </div>
+      </div>
+      <!--End modal-content-->
+    </div>
+    <!--end modal dialog -->
+  </div>
+
+
+  <!-- Account Management Block end -->
+
+
+  </div>
+  <!--End History modal-->
+
+  <div id="console_date">
+    <p class="console-date"></p>
+  </div>
+
+
+
+  <!-- DELIVERIES LIST -->
+  <div class="container">
+    <h4>Today's Deliveries
+      <!-- <span class="badge bg-success">Assigned 3</span> -->
+      <!-- <span class="badge bg-Primary">in Progess 2</span> -->
+      <!-- <span class="badge bg-warning text-dark">Delayed 2</span> -->
+      <!-- <span class="badge bg-danger">Cancelled 1</span> -->
+    </h4>
+
+    <div class="accordion" id="accordionExample">
+
+
+
+
+      <script type="text/javascript" src="js/orderdetails.js">
+
+
+      </script>
+    </div>
+  </div>
+
+  <!--Toast message popup. Lets user know that ACCOUNT has been successfuly created-->
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+    style="min-height: 200px;">
+    <div class="toast role=" alert" aria-live="assertive" aria-atomic="true" id="accountToast">
+      <div class="toast-header">
+        <strong class="me-auto">Account Management</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Account sucessfully created!
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!--Toast message popup. Lets user know that DELIVERY has been successfuly created-->
+  <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+    style="min-height: 200px;">
+    <div class="toast role=" alert" aria-live="assertive" aria-atomic="true" id="deliveryToast">
+      <div class="toast-header">
+        <strong class="me-auto">Create Delivery</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        Delivery sucessfully created!
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!--Scripts-->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <!--bootstrap-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+
+
+  <script src="js/main.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/monthlyReport.js"></script>
+
+
+
+  <!--Jquery Script to display date-->
+  <script>
+    var d = new Date();
+    document.querySelector(".console-date").innerHTML = "Today's date is : " + d.toDateString();
+  </script>
+
+
+
+
+
+
+
+</body>
+
+
+
+</html>
